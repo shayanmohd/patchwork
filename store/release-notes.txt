@@ -1,0 +1,10 @@
+First release.
+
+A time bank ledger for a group that already meets. One hour given earns one hour, and an hour is an hour
+whoever gives it. Balances are worked out from the book every time you look, and a ledger line is written
+only when both people say the hour happened.
+
+Everyone starts at plus two and the node carries them to minus three. Export the book and hand it to
+another keeper, who can merge it.
+
+No account, no ads, no internet permission.

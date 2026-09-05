@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>Patchwork</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="fonts/fonts.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<main id="stage">
+
+  <!-- ONBOARDING -->
+  <section class="screen" id="onboard" hidden>
+    <div class="ob-track" id="obTrack">
+      <article class="ob-card is-on">
+        <h1>An hour for an hour.</h1>
+        <p>Teach an hour of guitar, earn one hour. Spend it on an hour of anything anyone else can do.
+          No money changes hands, ever.</p>
+      </article>
+      <article class="ob-card">
+        <h1>This is the book, not the market.</h1>
+        <p>Patchwork keeps the ledger for a group that already meets: a street, a building, a library
+          circle, a family. It does not find you strangers, and it has no network to find them on.</p>
+      </article>
+      <article class="ob-card">
+        <h1>The node fronts you two hours.</h1>
+        <p>Everyone starts at plus two and may go to minus three. An overdraft is not a debt, it is the
+          group covering you until you help someone.</p>
+      </article>
+      <article class="ob-card">
+        <h1>Who keeps this book?</h1>
+        <div class="field"><label for="obName">Your name</label>
+          <input id="obName" type="text" autocomplete="off" placeholder="Amaia"></div>
+        <div class="field"><label for="obNode">What is the group called?</label>
+          <input id="obNode" type="text" autocomplete="off" placeholder="Lower Road"></div>
+      </article>
+    </div>
+    <div class="ob-foot">
+      <div class="ob-dots" id="obDots"></div>
+      <button class="btn primary" id="obNext">Next</button>
+    </div>
+  </section>
+
+  <!-- BOARD -->
+  <section class="screen view" id="v-board" hidden>
+    <header class="top">
+      <div><h1 id="nodeName">The node</h1><p class="sub" id="boardSub"></p></div>
+      <button class="btn small" id="addPersonTop">Add person</button>
+    </header>
+    <div class="scroller">
+      <input type="search" id="boardSearch" placeholder="Search offers and asks" aria-label="Search the board">
+      <div class="segbar" role="tablist">
+        <button class="seg is-on" data-board="offers" role="tab">Offers</button>
+        <button class="seg" data-board="asks" role="tab">Asks</button>
+      </div>
+      <div id="boardList"></div>
+      <p class="empty" id="boardEmpty" hidden></p>
+    </div>
+  </section>
+
+  <!-- BOOKINGS -->
+  <section class="screen view" id="v-bookings" hidden>
+    <header class="top"><div><h1>Bookings</h1><p class="sub">Arranged, and waiting to be confirmed.</p></div>
+      <button class="btn small" id="newBookingTop">Arrange</button></header>
+    <div class="scroller">
+      <div id="bookingList"></div>
+      <p class="empty" id="bookingEmpty" hidden>Nothing arranged. An exchange starts as a booking and
+        becomes a ledger line once both people say it happened.</p>
+    </div>
+  </section>
+
+  <!-- LEDGER -->
+  <section class="screen view" id="v-ledger" hidden>
+    <header class="top"><div><h1>Ledger</h1><p class="sub" id="ledgerSub"></p></div>
+      <button class="btn small ghost" id="ledgerExport">Export</button></header>
+    <div class="scroller">
+      <div class="balances" id="balances"></div>
+      <h2 class="h2">The book</h2>
+      <div id="ledgerList"></div>
+      <p class="empty" id="ledgerEmpty" hidden>The book is empty. Every hour anyone gives is written here,
+        in plain words, and cannot be quietly edited afterwards.</p>
+    </div>
+  </section>
+
+  <!-- PEOPLE -->
+  <section class="screen view" id="v-people" hidden>
+    <header class="top"><div><h1>People</h1><p class="sub" id="peopleSub"></p></div>
+      <button class="btn small" id="addPerson">Add person</button></header>
+    <div class="scroller">
+      <div id="peopleList"></div>
+      <hr class="rule">
+      <h2 class="h2">The book itself</h2>
+      <p class="help">Everything lives on this phone. Share the book as a file so another keeper can
+        merge it, and import theirs the same way.</p>
+      <div class="btnrow">
+        <button class="btn small ghost" id="exportJson">Export the book</button>
+        <label class="btn small ghost filelabel">Merge a book<input type="file" id="importFile" accept=".json" hidden></label>
+        <button class="btn small ghost" id="exportCsv">Export CSV</button>
+      </div>
+      <p class="help" id="ioNote"></p>
+      <div class="btnrow"><button class="btn small danger" id="eraseBtn">Erase everything</button></div>
+      <hr class="rule">
+      <p class="colophon">Patchwork. An hour for an hour.<br>Version 1.0</p>
+    </div>
+  </section>
+</main>
+
+<nav id="tabs" hidden>
+  <button data-view="board" class="tab is-on">Board</button>
+  <button data-view="bookings" class="tab">Bookings</button>
+  <button data-view="ledger" class="tab">Ledger</button>
+  <button data-view="people" class="tab">People</button>
+</nav>
+
+<!-- SHEETS -->
+<div class="sheet" id="sheet" hidden>
+  <div class="sheet-panel" id="sheetPanel"></div>
+</div>
+
+<p id="toast" class="toast" hidden></p>
+
+<script src="js/store.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
