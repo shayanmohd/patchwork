@@ -19,6 +19,11 @@ no INTERNET permission.
 
 `docs/` is the GitHub Pages site: landing page, privacy policy and a playable copy.
 
+`test/` holds the scripts that drive the app in a headless browser. Serve `web/` on a port and run them
+with `_shiptools/drive.js`: they cover the happy path, the edges, export and merge, the upgrade from the
+shipped 1.0.0 record in `test/fixture-1.0.0.json`, animations off, and a contrast audit of every text
+node in both themes.
+
 ## Build
 
 ```sh

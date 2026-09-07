@@ -37,7 +37,14 @@ app asks the exchange to wait, and explains why in plain words rather than refus
 
 THE BOARD
 Every person carries what they could do for an hour and what they could use an hour of, sorted into eight
-kinds of help, each with its own fabric colour. Search it, tap a person, arrange the hour.
+kinds of help, each with its own fabric. Search it, tap a person, arrange the hour. Before you arrange
+anything the app tells you how many hours the other person can still receive.
+
+THE QUILT
+Every exchange that both people have confirmed sews one patch, in the colour of whoever gave the hour,
+and the newest patch is laid in turned. The quilt sits in the corner of the board and fills the top of
+the ledger, so a group that has helped each other forty times has something to show for it. It is drawn
+from the book rather than kept beside it, which means it cannot be wrong.
 
 PASSING THE BOOK ON
 Export the whole book as a file and hand it to another keeper, who can merge it into theirs. Merging is
@@ -65,5 +72,7 @@ Privacy policy: https://shayanmohd.github.io/patchwork/privacy-policy.html
 - Content rating: no violence, sexuality, profanity, controlled substances, gambling, user-to-user
   communication or location sharing. The app has no network, so nothing is exchanged between users
   inside it.
-- AI-generated assets: none. The icon and feature graphic are drawn procedurally from store/brand.json;
-  the screenshots are captures of the running app.
+- AI-generated assets: none. The icon is a hand written SVG (store/icon.svg) and the feature graphic a
+  hand written HTML page (store/feature.html), both rendered by a local headless browser; every drawing
+  inside the app is inline SVG written by hand in web/js/art.js; the screenshots are captures of the
+  running app.

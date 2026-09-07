@@ -1,0 +1,42 @@
+{
+  "url": "http://localhost:8826/index.html",
+  "out": "store/screenshots",
+  "width": 540,
+  "height": 960,
+  "dpr": 2,
+  "wait": 1100,
+  "colorScheme": "light",
+  "seed": "(function(){ try { if (!localStorage.getItem('patchwork.v1')) localStorage.setItem('patchwork.v1', \"{\\\"v\\\":1,\\\"onboarded\\\":true,\\\"node\\\":\\\"Lower Road\\\",\\\"me\\\":\\\"pngv0zcs0vsn\\\",\\\"people\\\":[{\\\"id\\\":\\\"pngv0zcs0vsn\\\",\\\"name\\\":\\\"Amaia\\\",\\\"note\\\":\\\"Flat 2, evenings are best\\\",\\\"offers\\\":[{\\\"id\\\":\\\"labgz2v80vso\\\",\\\"cat\\\":\\\"make\\\",\\\"text\\\":\\\"Draw a sign for your window or your stall\\\"},{\\\"id\\\":\\\"l4drznez0vso\\\",\\\"cat\\\":\\\"teach\\\",\\\"text\\\":\\\"An hour of Basque conversation\\\"}],\\\"asks\\\":[{\\\"id\\\":\\\"l5ewo1kd0vso\\\",\\\"cat\\\":\\\"grow\\\",\\\"text\\\":\\\"Someone to water the pots for a week\\\"}]},{\\\"id\\\":\\\"pyct77nu0vsn\\\",\\\"name\\\":\\\"Walter\\\",\\\"note\\\":\\\"Flat 3, mornings only\\\",\\\"offers\\\":[{\\\"id\\\":\\\"lagqkv6o0vsn\\\",\\\"cat\\\":\\\"repair\\\",\\\"text\\\":\\\"Fix a dripping tap or a dead socket\\\"},{\\\"id\\\":\\\"lobj5w1j0vso\\\",\\\"cat\\\":\\\"teach\\\",\\\"text\\\":\\\"Show you what the fuse box actually does\\\"}],\\\"asks\\\":[{\\\"id\\\":\\\"l1enjll00vso\\\",\\\"cat\\\":\\\"move\\\",\\\"text\\\":\\\"Two people to shift a wardrobe\\\"}]},{\\\"id\\\":\\\"p5l3cac60vsn\\\",\\\"name\\\":\\\"Rosa\\\",\\\"note\\\":\\\"Two doors down, has the ladder\\\",\\\"offers\\\":[{\\\"id\\\":\\\"la2enru80vso\\\",\\\"cat\\\":\\\"grow\\\",\\\"text\\\":\\\"Cut back anything that has got out of hand\\\"},{\\\"id\\\":\\\"ljlkjqwk0vso\\\",\\\"cat\\\":\\\"move\\\",\\\"text\\\":\\\"Carry the heavy end of it\\\"}],\\\"asks\\\":[{\\\"id\\\":\\\"lpwar44j0vso\\\",\\\"cat\\\":\\\"admin\\\",\\\"text\\\":\\\"Explain how the pension form works\\\"}]},{\\\"id\\\":\\\"p3xdffi70vsn\\\",\\\"name\\\":\\\"Deepa\\\",\\\"note\\\":\\\"Runs the Saturday table at the library\\\",\\\"offers\\\":[{\\\"id\\\":\\\"l06luv7r0vso\\\",\\\"cat\\\":\\\"admin\\\",\\\"text\\\":\\\"Sit with you and fill in the forms\\\"}],\\\"asks\\\":[{\\\"id\\\":\\\"l065fick0vso\\\",\\\"cat\\\":\\\"repair\\\",\\\"text\\\":\\\"The library trolley wheel has gone\\\"}]},{\\\"id\\\":\\\"pzf7exzi0vsn\\\",\\\"name\\\":\\\"Tomas\\\",\\\"note\\\":\\\"Ground floor, back\\\",\\\"offers\\\":[{\\\"id\\\":\\\"lhklizvp0vso\\\",\\\"cat\\\":\\\"care\\\",\\\"text\\\":\\\"Sit with your dog for an afternoon\\\"}],\\\"asks\\\":[{\\\"id\\\":\\\"l71jag740vso\\\",\\\"cat\\\":\\\"teach\\\",\\\"text\\\":\\\"Show me how to put photos on a computer\\\"}]},{\\\"id\\\":\\\"pyt3ptms0vsn\\\",\\\"name\\\":\\\"Nell\\\",\\\"note\\\":\\\"Corner shop, closes at six\\\",\\\"offers\\\":[{\\\"id\\\":\\\"lit61aeu0vso\\\",\\\"cat\\\":\\\"make\\\",\\\"text\\\":\\\"Take up a hem or put a zip back in\\\"},{\\\"id\\\":\\\"liipvzxl0vso\\\",\\\"cat\\\":\\\"grow\\\",\\\"text\\\":\\\"Start your tomatoes off on my windowsill\\\"}],\\\"asks\\\":[]}],\\\"bookings\\\":[{\\\"id\\\":\\\"be505udt0vsp\\\",\\\"giverId\\\":\\\"p5l3cac60vsn\\\",\\\"receiverId\\\":\\\"pyct77nu0vsn\\\",\\\"what\\\":\\\"Sit with the cat on Thursday\\\",\\\"hours\\\":2,\\\"on\\\":\\\"2026-09-12\\\",\\\"state\\\":\\\"arranged\\\",\\\"gaveOk\\\":false,\\\"gotOk\\\":false},{\\\"id\\\":\\\"b6jvh5u40vsp\\\",\\\"giverId\\\":\\\"p3xdffi70vsn\\\",\\\"receiverId\\\":\\\"pngv0zcs0vsn\\\",\\\"what\\\":\\\"Go through the grant form\\\",\\\"hours\\\":1.5,\\\"on\\\":\\\"2026-09-09\\\",\\\"state\\\":\\\"arranged\\\",\\\"gaveOk\\\":true,\\\"gotOk\\\":false},{\\\"id\\\":\\\"bxtk3t6k0vsp\\\",\\\"giverId\\\":\\\"pyt3ptms0vsn\\\",\\\"receiverId\\\":\\\"pzf7exzi0vsn\\\",\\\"what\\\":\\\"Take the jacket in at the shoulders\\\",\\\"hours\\\":1,\\\"on\\\":\\\"2026-08-30\\\",\\\"state\\\":\\\"arranged\\\",\\\"gaveOk\\\":false,\\\"gotOk\\\":false}],\\\"entries\\\":[{\\\"id\\\":\\\"ek0ziisq0vso\\\",\\\"at\\\":1788760848120,\\\"giverId\\\":\\\"pyct77nu0vsn\\\",\\\"receiverId\\\":\\\"pngv0zcs0vsn\\\",\\\"hours\\\":1,\\\"what\\\":\\\"Rewired the hallway lamp\\\",\\\"source\\\":\\\"booking\\\"},{\\\"id\\\":\\\"etzwu0u80vso\\\",\\\"at\\\":1788760848120,\\\"giverId\\\":\\\"pngv0zcs0vsn\\\",\\\"receiverId\\\":\\\"p5l3cac60vsn\\\",\\\"hours\\\":1.5,\\\"what\\\":\\\"Drew the poster for the meeting\\\",\\\"source\\\":\\\"booking\\\"},{\\\"id\\\":\\\"e418onjr0vso\\\",\\\"at\\\":1788760848120,\\\"giverId\\\":\\\"p5l3cac60vsn\\\",\\\"receiverId\\\":\\\"pyct77nu0vsn\\\",\\\"hours\\\":2,\\\"what\\\":\\\"Cut the hedge back off the path\\\",\\\"source\\\":\\\"booking\\\"},{\\\"id\\\":\\\"etbq07fb0vso\\\",\\\"at\\\":1788760848120,\\\"giverId\\\":\\\"p3xdffi70vsn\\\",\\\"receiverId\\\":\\\"pzf7exzi0vsn\\\",\\\"hours\\\":1,\\\"what\\\":\\\"Filled in the housing form together\\\",\\\"source\\\":\\\"booking\\\"},{\\\"id\\\":\\\"eg4dbnqb0vso\\\",\\\"at\\\":1788760848120,\\\"giverId\\\":\\\"pyt3ptms0vsn\\\",\\\"receiverId\\\":\\\"p3xdffi70vsn\\\",\\\"hours\\\":0.5,\\\"what\\\":\\\"Took up the curtains\\\",\\\"source\\\":\\\"booking\\\"},{\\\"id\\\":\\\"erntjtp10vso\\\",\\\"at\\\":1788760848120,\\\"giverId\\\":\\\"pzf7exzi0vsn\\\",\\\"receiverId\\\":\\\"pyt3ptms0vsn\\\",\\\"hours\\\":3,\\\"what\\\":\\\"Sat with the shop while she was at the hospital\\\",\\\"source\\\":\\\"booking\\\"},{\\\"id\\\":\\\"e9vcbev20vso\\\",\\\"at\\\":1788760848120,\\\"giverId\\\":\\\"pyct77nu0vsn\\\",\\\"receiverId\\\":\\\"p3xdffi70vsn\\\",\\\"hours\\\":1,\\\"what\\\":\\\"New washer on the library tap\\\",\\\"source\\\":\\\"booking\\\"},{\\\"id\\\":\\\"ejkex6r40vso\\\",\\\"at\\\":1788760848120,\\\"giverId\\\":\\\"pngv0zcs0vsn\\\",\\\"receiverId\\\":\\\"pyt3ptms0vsn\\\",\\\"hours\\\":1,\\\"what\\\":\\\"Painted the new price board\\\",\\\"source\\\":\\\"booking\\\"},{\\\"id\\\":\\\"e9mc0ppf0vso\\\",\\\"at\\\":1788760848120,\\\"giverId\\\":\\\"p5l3cac60vsn\\\",\\\"receiverId\\\":\\\"pzf7exzi0vsn\\\",\\\"hours\\\":2,\\\"what\\\":\\\"Moved the wardrobe upstairs\\\",\\\"source\\\":\\\"booking\\\"},{\\\"id\\\":\\\"eljg9bxn0vso\\\",\\\"at\\\":1788760848120,\\\"giverId\\\":\\\"p3xdffi70vsn\\\",\\\"receiverId\\\":\\\"pngv0zcs0vsn\\\",\\\"hours\\\":1,\\\"what\\\":\\\"Read through the tenancy letter\\\",\\\"source\\\":\\\"booking\\\"},{\\\"id\\\":\\\"e1np4e7f0vso\\\",\\\"at\\\":1788760848120,\\\"giverId\\\":\\\"pyt3ptms0vsn\\\",\\\"receiverId\\\":\\\"pyct77nu0vsn\\\",\\\"hours\\\":1.5,\\\"what\\\":\\\"Mended two shirts and a coat\\\",\\\"source\\\":\\\"booking\\\"},{\\\"id\\\":\\\"elplmqe60vso\\\",\\\"at\\\":1788760848120,\\\"giverId\\\":\\\"pzf7exzi0vsn\\\",\\\"receiverId\\\":\\\"p5l3cac60vsn\\\",\\\"hours\\\":1,\\\"what\\\":\\\"Walked the dog while she was away\\\",\\\"source\\\":\\\"booking\\\"},{\\\"id\\\":\\\"e4hc2j180vsp\\\",\\\"at\\\":1788760848121,\\\"giverId\\\":\\\"pyct77nu0vsn\\\",\\\"receiverId\\\":\\\"pyt3ptms0vsn\\\",\\\"hours\\\":0.75,\\\"what\\\":\\\"Put the shop shelf back up\\\",\\\"source\\\":\\\"booking\\\"},{\\\"id\\\":\\\"eap16mef0vsp\\\",\\\"at\\\":1788760848121,\\\"giverId\\\":\\\"pngv0zcs0vsn\\\",\\\"receiverId\\\":\\\"p3xdffi70vsn\\\",\\\"hours\\\":2,\\\"what\\\":\\\"Made the signs for the Saturday table\\\",\\\"source\\\":\\\"booking\\\"},{\\\"id\\\":\\\"eo5nr9mk0vsp\\\",\\\"at\\\":1788760848121,\\\"giverId\\\":\\\"p5l3cac60vsn\\\",\\\"receiverId\\\":\\\"pyt3ptms0vsn\\\",\\\"hours\\\":1,\\\"what\\\":\\\"Brought the tomato plants on\\\",\\\"source\\\":\\\"booking\\\"}]}\"); } catch (e) {} })();",
+  "shots": [
+    {
+      "name": "01-board",
+      "before": "App.show('board');",
+      "waitMs": 900
+    },
+    {
+      "name": "02-ledger",
+      "before": "App.show('ledger');",
+      "waitMs": 900
+    },
+    {
+      "name": "03-bookings",
+      "before": "App.show('bookings');",
+      "waitMs": 900
+    },
+    {
+      "name": "04-person",
+      "before": "App.show('board'); document.querySelector('#boardList .entry').click();",
+      "waitMs": 900
+    },
+    {
+      "name": "05-arrange",
+      "before": "document.querySelector('#bookWith').click(); setTimeout(function(){ var w=document.querySelector('#bWhat'); w.value='Rewire the hallway lamp'; var h=document.querySelector('#bHours'); h.value='1.5'; h.dispatchEvent(new Event('input')); var d=document.querySelector('#bOn'); d.value='2026-09-19'; d.dispatchEvent(new Event('change')); }, 250);",
+      "waitMs": 1100
+    },
+    {
+      "name": "06-people",
+      "before": "App.back(); App.back(); App.show('people');",
+      "waitMs": 900
+    }
+  ]
+}

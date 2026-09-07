@@ -11,16 +11,18 @@
 <link rel="stylesheet" href="fonts/fonts.css">
 <style>
   :root {
-    --paper: #F6F1E7; --card: #FFFDF8; --kraft: #EDE3D2; --ink: #23201B; --soft: #5B554B;
-    --faint: #8B8478; --hair: #DCD2BF; --accent: #9A4B2C; --on-accent: #FFFDF8;
+    --paper: #F4EFE2; --card: #FCF8EF; --kraft: #E9E0CA; --ink: #1D2321; --soft: #454F4C;
+    --faint: #575F5C; --hair: #D9CEB5; --stitch: #C6B896;
+    --accent: #0A5F55; --accent-2: #0E7A6C; --on-accent: #FCF8EF; --gold: #7E5604;
     --sans: "Source Sans 3", system-ui, -apple-system, sans-serif;
     --slab: "Zilla Slab", Georgia, serif;
-    --c-repair: #9A4B2C; --c-teach: #B07D18; --c-grow: #4A6141; --c-make: #2F5D6B;
+    --c-make: #217A80; --c-teach: #B08608; --c-grow: #4A7A4E; --c-repair: #B4562A;
   }
   @media (prefers-color-scheme: dark) {
-    :root { --paper: #1A1815; --card: #221F1A; --kraft: #2A2620; --ink: #EDE7DA; --soft: #ABA292;
-            --faint: #7C7365; --hair: #3A342C; --accent: #E08A63; --on-accent: #1A1815;
-            --c-repair: #E08A63; --c-teach: #E0B457; --c-grow: #93B384; --c-make: #7FB6C8; }
+    :root { --paper: #121817; --card: #1A2120; --kraft: #232B29; --ink: #EAE5D7; --soft: #AEB7B2;
+            --faint: #98A29D; --hair: #333C39; --stitch: #3D4643;
+            --accent: #5BC9B4; --accent-2: #7FDCC9; --on-accent: #0E1413; --gold: #E0B44E;
+            --c-make: #5CC0C7; --c-teach: #E5B84E; --c-grow: #85C08A; --c-repair: #E58A56; }
   }
   * { box-sizing: border-box; }
   body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans);
@@ -29,15 +31,16 @@
   a { color: var(--accent); }
   h1, h2, h3 { font-family: var(--slab); font-weight: 600; letter-spacing: -0.01em; }
 
-  .cta { display: inline-block; background: var(--accent); color: var(--on-accent); text-decoration: none;
+  .cta { display: inline-block; background-color: var(--accent);
+         background-image: linear-gradient(180deg, var(--accent-2), var(--accent));
+         color: var(--on-accent); text-decoration: none; font-weight: 600;
          padding: 14px 26px; border-radius: 10px; font-size: 16px; border: 1px solid var(--accent);
          transition: transform .15s ease; }
   .cta:active { transform: translateY(1px); }
 
   nav { display: flex; align-items: center; justify-content: space-between; height: 76px; }
   .mark { display: flex; align-items: center; gap: 12px; font-family: var(--slab); font-size: 19px; }
-  .quilt { display: grid; grid-template-columns: 11px 11px; grid-template-rows: 11px 11px; gap: 2px; }
-  .quilt i { display: block; border-radius: 2px; }
+  .quilt { display: block; }
   nav a { color: var(--soft); text-decoration: none; font-size: 15px; margin-left: 22px; }
   nav a:hover { color: var(--ink); }
 
@@ -47,7 +50,9 @@
   .shot { width: 100%; height: auto; border-radius: 10px; border: 1px solid var(--hair); display: block; }
   .hero .shot { max-width: 330px; margin-left: auto; }
 
-  .rule-band { border-top: 1px solid var(--hair); border-bottom: 1px solid var(--hair); padding: 92px 0; text-align: center; }
+  .seam { height: 2px; background-image: repeating-linear-gradient(90deg, var(--stitch) 0 6px, transparent 6px 13px); }
+  .rule-band { padding: 92px 0; text-align: center;
+    background: linear-gradient(180deg, var(--card), var(--paper)); }
   .rule-band p.big { font-family: var(--slab); font-size: clamp(26px, 3.6vw, 38px); line-height: 1.3;
     margin: 0 auto 22px; max-width: 20ch; }
   .rule-band p.after { color: var(--soft); max-width: 48ch; margin: 0 auto; }
@@ -69,15 +74,17 @@
 
   .facts { padding: 30px 0 92px; }
   .facts h2 { font-size: clamp(28px, 3.2vw, 36px); margin: 0 0 22px; }
-  .row { display: grid; grid-template-columns: 13rem 1fr; gap: 30px; padding: 22px 0; border-top: 1px solid var(--hair); }
-  .row:last-child { border-bottom: 1px solid var(--hair); }
+  .row { display: grid; grid-template-columns: 13rem 1fr; gap: 30px; padding: 22px 0;
+    border-top: 2px solid transparent;
+    background-image: repeating-linear-gradient(90deg, var(--stitch) 0 6px, transparent 6px 13px);
+    background-size: 13px 2px; background-repeat: repeat-x; background-position: 0 0; }
   .row .k { font-family: var(--slab); font-size: 17px; }
   .row p { margin: 0; color: var(--soft); }
 
   .close { text-align: center; padding: 20px 0 110px; }
   .close p { font-family: var(--slab); font-size: 23px; max-width: 26ch; margin: 0 auto 28px; }
 
-  footer { border-top: 1px solid var(--hair); padding: 34px 0 60px; color: var(--faint); font-size: 15px; }
+  footer { padding: 34px 0 60px; color: var(--faint); font-size: 15px; }
   footer .r { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
   footer a { color: var(--soft); text-decoration: none; margin-right: 18px; }
 
@@ -102,7 +109,13 @@
 <div class="wrap">
   <nav>
     <span class="mark">
-      <span class="quilt"><i style="background:var(--c-repair)"></i><i style="background:var(--c-grow)"></i><i style="background:var(--c-teach)"></i><i style="background:var(--c-make)"></i></span>
+      <svg class="quilt" width="28" height="28" viewBox="26 26 56 56" aria-hidden="true">
+        <rect x="30.6" y="30.6" width="19.4" height="19.4" rx="3.4" fill="var(--c-make)"/>
+        <rect x="58" y="30.6" width="19.4" height="19.4" rx="3.4" fill="var(--c-teach)"/>
+        <rect x="30.6" y="58" width="19.4" height="19.4" rx="3.4" fill="var(--c-repair)"/>
+        <g transform="translate(67.7 67.7) rotate(25)">
+          <rect x="-9.7" y="-9.7" width="19.4" height="19.4" rx="3.4" fill="var(--c-grow)"/></g>
+      </svg>
       Patchwork
     </span>
     <span>
@@ -120,10 +133,11 @@
       <a class="cta" href="https://play.google.com/store/apps/details?id=com.mohdshayan.patchwork">Get it on Google Play</a>
     </div>
     <img class="shot reveal" src="shots/02-ledger.png" width="1080" height="1920"
-         alt="The ledger: balances for five neighbours and the book of exchanges written in plain sentences.">
+         alt="The ledger: the quilt, six balances, and the book of exchanges written in plain sentences.">
   </header>
 </div>
 
+<div class="seam"></div>
 <section class="rule-band">
   <div class="wrap">
     <p class="big">A line is written only when both people say it happened.</p>
@@ -132,6 +146,7 @@
       book cannot quietly disagree with itself.</p>
   </div>
 </section>
+<div class="seam"></div>
 
 <section class="not wrap" id="how">
   <h2>What it is, and what it is not</h2>
@@ -155,16 +170,34 @@
   <div class="strip">
     <figure class="reveal">
       <img class="shot" src="shots/01-board.png" width="1080" height="1920" alt="The board: offers listed with a colour for each kind of help.">
-      <figcaption>Eight kinds of help, each with its own fabric colour. Search it and tap a person.</figcaption>
+      <figcaption>Eight kinds of help, each with its own fabric. Search it and tap a person.</figcaption>
     </figure>
     <figure class="reveal">
       <img class="shot" src="shots/03-bookings.png" width="1080" height="1920" alt="A booking waiting for both people to confirm it happened.">
       <figcaption>An arrangement waits until both sides confirm. Then it becomes a line in the book.</figcaption>
     </figure>
     <figure class="reveal">
-      <img class="shot" src="shots/04-person.png" width="1080" height="1920" alt="A person's page with their offers, asks and balance.">
-      <figcaption>Every person carries what they can do and what they need, with their balance in hours.</figcaption>
+      <img class="shot" src="shots/06-people.png" width="1080" height="1920" alt="The roster, with each person's fabric colour, what they offer and their balance in hours.">
+      <figcaption>Everyone in the book owns a colour, and it is the colour their patches are cut from.</figcaption>
     </figure>
+  </div>
+</section>
+
+<section class="wrap" style="padding: 26px 0 92px">
+  <div class="cols">
+    <div>
+      <h3>The quilt</h3>
+      <p>Every exchange that both people have confirmed sews one patch, in the colour of whoever gave
+        the hour, and the newest one is laid in turned. It sits in the corner of the board and fills
+        the top of the ledger. A group that has helped each other forty times has a quilt to show for
+        it, and it is drawn from the book rather than kept beside it.</p>
+    </div>
+    <div>
+      <h3>Made to be read</h3>
+      <p>Hours are hours, never prices. A booking says who gives, who receives, how long and when, and
+        tells you before you arrange it how much the other person can still receive. A date that has
+        gone by says so. Nothing is written into the book by one person alone.</p>
+    </div>
   </div>
 </section>
 
@@ -188,6 +221,7 @@
   <a class="cta" href="https://play.google.com/store/apps/details?id=com.mohdshayan.patchwork">Get it on Google Play</a>
 </section>
 
+<div class="seam"></div>
 <footer>
   <div class="wrap r">
     <span>

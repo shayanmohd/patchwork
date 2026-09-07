@@ -3,16 +3,35 @@
   "org": "SocialSure Private Limited",
   "site": "https://shayanmohd.github.io/patchwork/",
   "email": "shayanm2002@gmail.com",
-  "bg": "#F6F1E7", "fg": "#23201B", "muted": "#5B554B", "hair": "#DCD2BF", "accent": "#9A4B2C",
-  "bgDark": "#1A1815", "fgDark": "#EDE7DA", "mutedDark": "#ABA292", "hairDark": "#3A342C", "accentDark": "#E08A63",
+  "bg": "#F4EFE2",
+  "fg": "#1D2321",
+  "muted": "#454F4C",
+  "hair": "#D9CEB5",
+  "accent": "#0A5F55",
+  "bgDark": "#121817",
+  "fgDark": "#EAE5D7",
+  "mutedDark": "#AEB7B2",
+  "hairDark": "#333C39",
+  "accentDark": "#5BC9B4",
   "fontFamily": "'Source Sans 3', system-ui, -apple-system, sans-serif",
   "fontCss": "fonts/fonts.css",
-  "permissions": [["VIBRATE", "a short tap when an exchange is written into the book"]],
+  "permissions": [
+    [
+      "VIBRATE",
+      "a short tap when an exchange is written into the book"
+    ]
+  ],
   "network": false,
   "collects": [],
   "storage": "The roster, the board, the bookings and the ledger are stored in this app's private storage on this device. Nothing is uploaded. The book leaves the phone only when you export it yourself and choose where it goes.",
   "extra": [
-    ["Other people's names", "You will type the names of neighbours into this book. They are stored on your device only, they are never transmitted, and they appear in an export only when you make one. Tell the people in your group that the book exists and who keeps it; that is a courtesy the app cannot perform for you."],
-    ["Merging books", "Importing another keeper's file adds their people, bookings and ledger lines to yours, matched by id so a repeated merge changes nothing. It is the only way information moves between phones, and it moves because a person carried it."]
+    [
+      "Other people's names",
+      "You will type the names of neighbours into this book. They are stored on your device only, they are never transmitted, and they appear in an export only when you make one. Tell the people in your group that the book exists and who keeps it; that is a courtesy the app cannot perform for you."
+    ],
+    [
+      "Merging books",
+      "Importing another keeper's file adds their people, bookings and ledger lines to yours, matched by id so a repeated merge changes nothing. It is the only way information moves between phones, and it moves because a person carried it."
+    ]
   ]
 }
