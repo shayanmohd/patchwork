@@ -75,6 +75,18 @@ const App = (() => {
       }
     };
   }
+  /** A destructive button asks a second time before it acts. It remembers its resting label so
+      that leaving the app cannot strand it reading "Tap again to remove Walter" while disarmed. */
+  function arm(btn, label, ms) {
+    btn.dataset.rest = btn.dataset.rest || btn.textContent;
+    btn.dataset.armed = '1';
+    btn.textContent = label;
+    setTimeout(() => { if (btn.isConnected && btn.dataset.armed) disarm(btn); }, ms || 4000);
+  }
+  function disarm(btn) {
+    delete btn.dataset.armed;
+    if (btn.dataset.rest) btn.textContent = btn.dataset.rest;
+  }
   /** Errors belong under the field that caused them, never in a dialog box. */
   function showErr(panel, fieldId, msg) {
     const err = panel.querySelector('#' + fieldId + 'Err');
@@ -127,6 +139,20 @@ const App = (() => {
     `${art}<p class="lead">${esc(lead)}</p><p>${esc(body)}</p>`
     + (action ? `<div class="btnrow" style="justify-content:center"><button class="btn primary" id="${action.id}">${esc(action.label)}</button></div>` : '');
 
+  /* ---------- the quilt ---------- */
+  /* A patch is stitched in once, when it is first sewn. Redrawing the board because somebody typed
+     a letter into the search box must not replay the animation. */
+  let sewnBoard = null, sewnLedger = null;
+  const newestPatch = () => { const es = Store.entries(); return es.length ? es[es.length - 1].id : null; };
+  /* The quilt widens as the book grows so it holds the whole book for as long as it can, rather
+     than quietly dropping the oldest patches while the caption still counts them. */
+  const QUILT_COLS = [8, 12, 16, 20, 24];
+  function quiltShape(n) {
+    const cols = QUILT_COLS.find(c => Math.ceil(n / c) <= 6) || QUILT_COLS[QUILT_COLS.length - 1];
+    const rows = Math.max(1, Math.min(6, Math.ceil(n / cols)));
+    return { cols, rows, shown: Math.min(n, cols * rows) };
+  }
+
   /* ---------- board ---------- */
   function renderBoard() {
     const db = Store.settings();
@@ -136,9 +162,16 @@ const App = (() => {
       ? 'Nobody in the book yet.'
       : plural(n, 'person', 'people') + ', ' + plural(ex, 'exchange', 'exchanges') + ' written down.';
 
+    const newest = newestPatch(), fresh = newest !== sewnBoard;
+    sewnBoard = newest;
     $('#quiltMini').innerHTML = Art.quilt(Store.entries(),
-      { cols: 4, rows: 4, cell: 12, gap: 3, animate: true, label: 'The quilt, one patch for every exchange' });
+      { cols: 4, rows: 4, cell: 12, gap: 3, animate: fresh, label: null });
+    renderBoardList();
+  }
 
+  /* `settle` false while somebody is typing in the search box: replaying the list animation on
+     every keystroke makes the board jitter under the fingers. */
+  function renderBoardList(settle) {
     $$('.seg').forEach(s => {
       const on = s.dataset.board === boardKind;
       s.classList.toggle('is-on', on);
@@ -165,6 +198,7 @@ const App = (() => {
                 'An ask is the fastest way for someone to spend an hour they have earned.',
                 { id: 'boardOpenRoster', label: 'Open the roster' });
     }
+    $('#boardList').classList.toggle('stagger', settle !== false);
     $('#boardList').innerHTML = rows.map(r => `
       <button class="entry" data-person="${r.person.id}">
         ${swatch(r.listing.cat)}
@@ -205,9 +239,14 @@ const App = (() => {
     const add = $('#peopleAddPerson'); if (add) add.onclick = personSheet;
   }
 
+  /* Below zero the node is carrying somebody. At the floor it has stopped carrying them, and a book
+     merged from another keeper can arrive already past it, so say which of the two this is. */
+  const coverNote = bal => bal >= 0 ? 'Earned and unspent.'
+    : bal > Store.FLOOR ? 'The node has them covered.'
+    : 'The next hour has to be one they give.';
+
   function balanceLine(bal) {
-    return `<b${bal < 0 ? ' class="neg"' : ''}>${signed(bal)} hours</b>. `
-      + (bal < 0 ? 'The node has them covered.' : 'Earned and unspent.');
+    return `<b${bal < 0 ? ' class="neg"' : ''}>${signed(bal)} hours</b>. ` + coverNote(bal);
   }
 
   function openPerson(id) {
@@ -249,11 +288,7 @@ const App = (() => {
       const del = panel.querySelector('#delP');
       del.onclick = () => {
         if (del.dataset.armed) { Store.removePerson(id); closeSheet(); renderAll(); toast(p.name + ' left the roster'); }
-        else {
-          del.dataset.armed = '1'; del.textContent = 'Tap again to remove ' + p.name;
-          setTimeout(() => { if (del.isConnected && del.dataset.armed) {
-            delete del.dataset.armed; del.textContent = 'Remove from the book'; } }, 4000);
-        }
+        else arm(del, 'Tap again to remove ' + p.name);
       };
     });
   }
@@ -352,19 +387,21 @@ const App = (() => {
       }
       function check() {
         const h = Number(hrs.value);
+        /* A cleared or unreadable field used to disable Arrange it in silence, which leaves a dead
+           button and no reason for it. Whatever the field cannot be read as, say so under it. */
         const bad = hrs.value.trim() === '' || !isFinite(h) || Store.goodHours(h) === null;
-        panel.querySelector('#bHours').closest('.field').classList.toggle('bad', bad && hrs.value.trim() !== '');
+        hrs.closest('.field').classList.toggle('bad', bad);
         const hErr = panel.querySelector('#bHoursErr');
-        if (bad && hrs.value.trim() !== '') {
-          hErr.textContent = 'An hour between 0.25 and ' + Store.MAX_H + ', in quarters.';
-          hErr.hidden = false;
-        } else { hErr.hidden = true; }
+        hErr.textContent = 'An hour between 0.25 and ' + Store.MAX_H + ', in quarters.';
+        hErr.hidden = !bad;
 
+        /* A book merged from another keeper can arrive with somebody already past the floor, and
+           "can still receive -3 hours" is not a sentence anyone should be shown. */
         const room = Store.headroom(recv.value);
-        panel.querySelector('#bRoom').textContent = Store.exists(recv.value)
-          ? Store.nameOf(recv.value) + ' is at ' + signed(Store.balance(recv.value))
-            + ' and can still receive ' + hours(room) + '.'
-          : '';
+        panel.querySelector('#bRoom').textContent = !Store.exists(recv.value) ? ''
+          : Store.nameOf(recv.value) + ' is at ' + signed(Store.balance(recv.value))
+            + (room > 0 ? ' and can still receive ' + hours(room) + '.'
+                        : ' and cannot receive another hour until they give one.');
         const ok = !bad && Store.canReceive(recv.value, h);
         if (!bad && !ok) {
           floorErr.textContent = Store.nameOf(recv.value) + ' would fall past ' + Store.FLOOR
@@ -400,7 +437,7 @@ const App = (() => {
   function renderBookings() {
     const open = Store.openBookings(), past = Store.pastBookings();
     $('#bookingSub').textContent = open.length
-      ? plural(open.length, 'exchange', 'exchanges') + ' arranged, waiting to be confirmed'
+      ? plural(open.length, 'exchange', 'exchanges') + ' arranged, waiting to be confirmed.'
       : 'Arranged, and waiting to be confirmed.';
     const empty = $('#bookingEmpty');
     empty.hidden = open.length + past.length > 0;
@@ -420,7 +457,7 @@ const App = (() => {
       else pill = `<span class="pill">Arranged</span>`;
       return `<div class="card" data-b="${b.id}">
         <h3>${esc(b.what || 'An hour')}</h3>
-        <p class="meta"><b>${gName}</b> gives ${hours(b.hours)} to <b>${rName}</b>, ${esc(dateLabel(b.on))}</p>
+        <p class="meta"><b>${gName}</b> ${done ? 'gave' : 'gives'} ${hours(b.hours)} to <b>${rName}</b>, ${esc(dateLabel(b.on))}</p>
         ${pill}
         ${done ? '' : `<div class="btnrow">
             ${b.gaveOk ? `<span class="confirmed">${icon('i-check', 15)} ${gName} confirmed</span>`
@@ -431,9 +468,12 @@ const App = (() => {
           </div>`}
       </div>`;
     };
+    const DONE_SHOWN = 30;
     $('#bookingList').innerHTML =
       (open.length ? '<h2 class="h2">Arranged</h2>' + open.map(b => card(b, false)).join('') : '') +
-      (past.length ? '<h2 class="h2">Done</h2>' + past.slice(0, 30).map(b => card(b, true)).join('') : '');
+      (past.length ? '<h2 class="h2">Done</h2>' + past.slice(0, DONE_SHOWN).map(b => card(b, true)).join('')
+        + (past.length > DONE_SHOWN
+          ? `<p class="help">The ${past.length - DONE_SHOWN} older ones are in the ledger.</p>` : '') : '');
     const arr = $('#bookingsArrange'); if (arr) arr.onclick = () => bookingSheet(null);
     $$('#bookingList .card').forEach(c => {
       const id = c.dataset.b;
@@ -453,12 +493,7 @@ const App = (() => {
       const cancel = c.querySelector('[data-cancel]');
       if (cancel) once(cancel, () => {
         if (cancel.dataset.armed) { Store.cancelBooking(id); renderBookings(); toast('Cancelled'); }
-        else {
-          cancel.dataset.armed = '1'; cancel.textContent = 'Tap again to cancel';
-          setTimeout(() => { if (cancel.isConnected && cancel.dataset.armed) {
-            delete cancel.dataset.armed; cancel.textContent = 'Cancel'; } }, 4000);
-          return false;
-        }
+        else { arm(cancel, 'Tap again to cancel'); return false; }
       });
     });
   }
@@ -472,18 +507,22 @@ const App = (() => {
       ? hours(total) + ' ' + hasHave(total) + ' changed hands'
       : 'Nothing given yet';
 
-    const rows = Math.max(1, Math.min(6, Math.ceil(es.length / 8)));   // the quilt is only as big as the book
-    $('#quiltBig').innerHTML = Art.quilt(es, { cols: 8, rows, cell: 12, gap: 3, animate: true,
+    const q = quiltShape(es.length);        // the quilt is only as big as the book, and no smaller
+    const newest = newestPatch(), fresh = newest !== sewnLedger;
+    sewnLedger = newest;
+    $('#quiltBig').innerHTML = Art.quilt(es, { cols: q.cols, rows: q.rows, cell: 12, gap: 3, animate: fresh,
       cls: 'quilt-big', width: '100%', label: 'The quilt, one patch for every exchange in the book' })
       + `<p class="quilt-cap"><b>${es.length ? plural(es.length, 'patch', 'patches') : 'No patches yet'}</b>`
-      + `<span>${es.length ? 'One for every exchange, in the colour of whoever gave the hour.'
-                           : 'The first exchange sews the first patch.'}</span></p>`;
+      + `<span>${!es.length ? 'The first exchange sews the first patch.'
+                : q.shown < es.length
+                  ? 'The newest ' + q.shown + ' are shown, in the colour of whoever gave the hour.'
+                  : 'One for every exchange, in the colour of whoever gave the hour.'}</span></p>`;
 
     $('#balances').innerHTML = bal.map(b => `
       <div class="bal-card${b.hours < 0 ? ' over' : ''}" style="--fab: var(--c-${Art.fabricOf(b.id)})">
         <p class="n">${signed(b.hours)}</p>
         <p class="who">${esc(b.name)}</p>
-        ${b.hours < 0 ? '<p class="note">The node has them covered.</p>' : ''}
+        ${b.hours < 0 ? `<p class="note">${coverNote(b.hours)}</p>` : ''}
       </div>`).join('') || '<p class="help">Balances appear once there are people in the book.</p>';
 
     const list = es.slice().reverse();
@@ -561,8 +600,8 @@ const App = (() => {
     $('#obMark').innerHTML = Art.mark(76);
     $('#obNext').onclick = obNext;      // paging must stay tappable; the commit guards itself
     $$('.tab').forEach(t => { t.onclick = () => show(t.dataset.view); });
-    $$('.seg').forEach(s => { s.onclick = () => { boardKind = s.dataset.board; renderBoard(); }; });
-    $('#boardSearch').addEventListener('input', renderBoard);
+    $$('.seg').forEach(s => { s.onclick = () => { boardKind = s.dataset.board; renderBoardList(true); }; });
+    $('#boardSearch').addEventListener('input', () => renderBoardList(false));
     $('#quiltMini').onclick = () => show('ledger');
     $('#addPerson').onclick = personSheet;
     $('#newBookingTop').onclick = () => bookingSheet(null);
@@ -594,8 +633,7 @@ const App = (() => {
     $('#eraseBtn').onclick = () => {
       const b = $('#eraseBtn');
       if (b.dataset.armed) { Store.erase(); location.reload(); }
-      else { b.dataset.armed = '1'; b.textContent = 'Tap again to erase everything';
-             setTimeout(() => { delete b.dataset.armed; b.textContent = 'Erase everything'; }, 4000); }
+      else arm(b, 'Tap again to erase everything');
     };
   }
 
@@ -624,8 +662,7 @@ const App = (() => {
   function onPause() {
     clearTimeout(toast._t);
     $('#toast').hidden = true;
-    $$('[data-armed]').forEach(b => { delete b.dataset.armed; });
-    const e = $('#eraseBtn'); if (e) e.textContent = 'Erase everything';
+    $$('[data-armed]').forEach(disarm);
   }
   function onResume() { if (Store.onboarded()) renderAll(); }
 

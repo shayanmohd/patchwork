@@ -22,7 +22,10 @@ no INTERNET permission.
 `test/` holds the scripts that drive the app in a headless browser. Serve `web/` on a port and run them
 with `_shiptools/drive.js`: they cover the happy path, the edges, export and merge, the upgrade from the
 shipped 1.0.0 record in `test/fixture-1.0.0.json`, animations off, and a contrast audit of every text
-node in both themes.
+node in both themes. The `review-*.js` set is the second, independent pass: the shell contract
+(`back`, `onPause`, `onResume`), the safe-area insets, a merged book that arrives already past the
+floor, and a book far larger than the quilt can hold. `review-05a-write100.js` regenerates
+`test/review-fixture-1.0.0.json` by driving a checkout of the shipped 1.0.0 build itself.
 
 ## Build
 

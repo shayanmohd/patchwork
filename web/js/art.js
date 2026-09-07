@@ -57,9 +57,11 @@ const Art = (() => {
       out += patch(x, y, w, last ? 18 : tiltOf(e.id, i), fabricOf(e.giverId), last && opts.animate ? 'new' : '');
     }
     const size = opts.width ? `width="${opts.width}"` : `width="${side}" height="${tall}"`;
+    // label: null means the thing around it already says what this is, so say nothing twice
+    const a11y = opts.label === null ? 'aria-hidden="true"' : `role="img" aria-label="${opts.label || 'The quilt'}"`;
     return `<svg class="${opts.cls || ''}" ${size}`
       + ` viewBox="${-pad} ${-pad} ${side + pad * 2} ${tall + pad * 2}"`
-      + ` role="img" aria-label="${opts.label || 'The quilt'}" xmlns="http://www.w3.org/2000/svg">${out}</svg>`;
+      + ` ${a11y} xmlns="http://www.w3.org/2000/svg">${out}</svg>`;
   }
 
   /* The mark: four patches, one turned. The launcher icon, drawn in the app's own colours. */

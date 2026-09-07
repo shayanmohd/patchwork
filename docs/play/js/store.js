@@ -62,8 +62,12 @@ const Store = (() => {
     on: typeof b.on === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(b.on) ? b.on : null,
     state: b.state === 'done' ? 'done' : 'arranged', gaveOk: !!b.gaveOk, gotOk: !!b.gotOk });
 
-  let repaired = 0;
+  let repaired = 0;       // ledger lines dropped by the last load, reported once
+  let dropped = false;    // anything at all dropped, which means the stored record is now wrong
   let db = load();
+  /* Repair the stored book, not just the copy in memory. Without this the unreadable line stays
+     on disk and the app re-diagnoses it, with the same message, at every single launch. */
+  if (dropped) save();
 
   /* A book written by 1.0.0 loads unchanged: the shape has not moved. What load() does do is
      refuse to keep a ledger line that carries no usable number of hours, because one of those
@@ -76,11 +80,14 @@ const Store = (() => {
       const parsed = JSON.parse(raw);
       if (!parsed || typeof parsed !== 'object') return blank();
       const d = Object.assign(blank(), parsed);
-      d.people = (Array.isArray(d.people) ? d.people : []).filter(goodPerson).map(cleanPerson);
+      const people = (Array.isArray(d.people) ? d.people : []);
+      d.people = people.filter(goodPerson).map(cleanPerson);
       const entries = (Array.isArray(d.entries) ? d.entries : []);
       d.entries = entries.filter(goodEntry).map(cleanEntry);
       repaired = entries.length - d.entries.length;
-      d.bookings = (Array.isArray(d.bookings) ? d.bookings : []).filter(goodBooking).map(cleanBooking);
+      const bookings = (Array.isArray(d.bookings) ? d.bookings : []);
+      d.bookings = bookings.filter(goodBooking).map(cleanBooking);
+      dropped = repaired > 0 || d.people.length !== people.length || d.bookings.length !== bookings.length;
       d.node = str(d.node, 40);
       d.onboarded = !!d.onboarded;
       d.me = isId(d.me) ? d.me : null;
